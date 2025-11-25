@@ -5,16 +5,16 @@ export default function Header({ onMenuClick, title }) {
   const { search, setSearch } = useFilterStore()
 
   return (
-    <header className="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-4 lg:px-6">
+    <header className="h-16 glass-header flex items-center justify-between px-4 lg:px-6">
       {/* Left side */}
       <div className="flex items-center gap-4">
         <button
           onClick={onMenuClick}
-          className="p-2 rounded-lg hover:bg-slate-100 lg:hidden"
+          className="p-2 rounded-xl glass-button lg:hidden"
         >
           <Bars3Icon className="w-6 h-6 text-slate-600" />
         </button>
-        <h2 className="text-lg font-semibold text-slate-900">{title}</h2>
+        <h2 className="text-lg font-semibold text-slate-800">{title}</h2>
       </div>
 
       {/* Search bar */}
@@ -26,16 +26,16 @@ export default function Header({ onMenuClick, title }) {
             placeholder="Search orders, items, customers..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 bg-slate-100 border-0 rounded-xl text-sm placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all"
+            className="w-full pl-10 pr-4 py-2.5 glass-input rounded-2xl text-sm placeholder:text-slate-400 focus:outline-none transition-all"
           />
         </div>
       </div>
 
       {/* Right side */}
       <div className="flex items-center gap-3">
-        <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-emerald-50 to-teal-50 rounded-full">
-          <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-          <span className="text-xs font-medium text-emerald-700">Live Data</span>
+        <div className="hidden sm:flex items-center gap-2 px-4 py-2 glass rounded-full">
+          <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shadow-lg shadow-emerald-500/50" />
+          <span className="text-xs font-medium text-slate-600">Live Data</span>
         </div>
       </div>
     </header>

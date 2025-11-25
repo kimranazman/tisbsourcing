@@ -161,10 +161,10 @@ export default function Dashboard() {
 
       {/* Top Customers Table */}
       <Card title="Top Customers" subtitle="By order frequency">
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto rounded-2xl glass-table">
           <table className="min-w-full">
             <thead>
-              <tr className="border-b border-slate-200">
+              <tr>
                 <th className="px-4 py-3 text-left text-xs font-semibold text-slate-600 uppercase">Rank</th>
                 <th className="px-4 py-3 text-left text-xs font-semibold text-slate-600 uppercase">Customer</th>
                 <th className="px-4 py-3 text-left text-xs font-semibold text-slate-600 uppercase">Orders</th>
@@ -173,29 +173,29 @@ export default function Dashboard() {
             </thead>
             <tbody>
               {topCustomers.map((customer, index) => (
-                <tr key={index} className="border-b border-slate-100 hover:bg-slate-50">
+                <tr key={index} className="border-b border-white/10 hover:bg-white/20 transition-colors">
                   <td className="px-4 py-3">
-                    <span className={`inline-flex items-center justify-center w-6 h-6 rounded-full text-xs font-bold ${
-                      index === 0 ? 'bg-amber-100 text-amber-700' :
-                      index === 1 ? 'bg-slate-200 text-slate-700' :
-                      index === 2 ? 'bg-orange-100 text-orange-700' :
-                      'bg-slate-100 text-slate-600'
+                    <span className={`inline-flex items-center justify-center w-7 h-7 rounded-xl text-xs font-bold ${
+                      index === 0 ? 'glass-accent-amber' :
+                      index === 1 ? 'glass' :
+                      index === 2 ? 'glass-accent-pink' :
+                      'glass'
                     }`}>
                       {index + 1}
                     </span>
                   </td>
                   <td className="px-4 py-3">
-                    <p className="font-medium text-slate-900 text-sm">{customer.name}</p>
+                    <p className="font-medium text-slate-800 text-sm">{customer.name}</p>
                     {customer.email && (
                       <p className="text-xs text-slate-500">{customer.email}</p>
                     )}
                   </td>
                   <td className="px-4 py-3">
-                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                    <span className="glass-badge glass-accent-blue">
                       {customer.orderCount} orders
                     </span>
                   </td>
-                  <td className="px-4 py-3 text-sm font-medium text-slate-900">
+                  <td className="px-4 py-3 text-sm font-semibold text-slate-800">
                     {formatCurrency(customer.totalSpent)}
                   </td>
                 </tr>

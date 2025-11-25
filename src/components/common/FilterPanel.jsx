@@ -11,8 +11,8 @@ function MultiSelect({ label, options, selected, onChange, placeholder }) {
         <Listbox.Label className="block text-sm font-medium text-slate-700 mb-1">
           {label}
         </Listbox.Label>
-        <Listbox.Button className="relative w-full cursor-pointer rounded-xl bg-white py-2.5 pl-4 pr-10 text-left border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm">
-          <span className="block truncate">
+        <Listbox.Button className="relative w-full cursor-pointer rounded-2xl glass-input py-2.5 pl-4 pr-10 text-left text-sm focus:outline-none">
+          <span className="block truncate text-slate-700">
             {selected.length === 0
               ? placeholder
               : `${selected.length} selected`
@@ -28,25 +28,25 @@ function MultiSelect({ label, options, selected, onChange, placeholder }) {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <Listbox.Options className="absolute z-50 mt-1 max-h-60 w-full overflow-auto rounded-xl bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none text-sm">
+          <Listbox.Options className="absolute z-50 mt-2 max-h-60 w-full overflow-auto rounded-2xl glass py-2 shadow-xl focus:outline-none text-sm">
             {options.slice(0, 100).map((option) => (
               <Listbox.Option
                 key={option}
                 value={option}
                 className={({ active }) =>
                   clsx(
-                    'relative cursor-pointer select-none py-2 pl-10 pr-4',
-                    active ? 'bg-blue-50 text-blue-900' : 'text-slate-900'
+                    'relative cursor-pointer select-none py-2 pl-10 pr-4 transition-colors',
+                    active ? 'bg-white/40' : ''
                   )
                 }
               >
                 {({ selected }) => (
                   <>
-                    <span className={clsx('block truncate', selected && 'font-medium')}>
+                    <span className={clsx('block truncate text-slate-700', selected && 'font-medium')}>
                       {option}
                     </span>
                     {selected && (
-                      <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-blue-600">
+                      <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-indigo-600">
                         <CheckIcon className="h-5 w-5" />
                       </span>
                     )}
@@ -75,16 +75,16 @@ export default function FilterPanel({ metadata }) {
       <button
         onClick={() => setIsOpen(!isOpen)}
         className={clsx(
-          'flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all',
+          'flex items-center gap-2 px-5 py-2.5 rounded-2xl text-sm font-medium transition-all duration-300',
           hasFilters
-            ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-lg shadow-blue-500/25'
-            : 'bg-white border border-slate-200 text-slate-600 hover:bg-slate-50'
+            ? 'glass-button-primary'
+            : 'glass-button text-slate-600'
         )}
       >
         <FunnelIcon className="w-4 h-4" />
         Filters
         {hasFilters && (
-          <span className="ml-1 px-1.5 py-0.5 bg-white/20 rounded text-xs">
+          <span className="ml-1 px-2 py-0.5 bg-white/20 rounded-full text-xs">
             Active
           </span>
         )}
@@ -93,14 +93,14 @@ export default function FilterPanel({ metadata }) {
       {/* Filter panel */}
       <Transition
         show={isOpen}
-        enter="transition-all duration-200"
-        enterFrom="opacity-0 -translate-y-2"
+        enter="transition-all duration-300"
+        enterFrom="opacity-0 -translate-y-4"
         enterTo="opacity-100 translate-y-0"
-        leave="transition-all duration-150"
+        leave="transition-all duration-200"
         leaveFrom="opacity-100 translate-y-0"
-        leaveTo="opacity-0 -translate-y-2"
+        leaveTo="opacity-0 -translate-y-4"
       >
-        <div className="mt-4 p-4 bg-white rounded-2xl border border-slate-200 shadow-sm">
+        <div className="mt-4 p-6 glass-card">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {/* State filter */}
             <MultiSelect
@@ -129,7 +129,7 @@ export default function FilterPanel({ metadata }) {
                 type="date"
                 value={dateRange.start || ''}
                 onChange={(e) => setDateRange({ ...dateRange, start: e.target.value || null })}
-                className="w-full rounded-xl border border-slate-200 py-2.5 px-4 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full rounded-2xl glass-input py-2.5 px-4 text-sm text-slate-700 focus:outline-none"
               />
             </div>
 
@@ -142,17 +142,17 @@ export default function FilterPanel({ metadata }) {
                 type="date"
                 value={dateRange.end || ''}
                 onChange={(e) => setDateRange({ ...dateRange, end: e.target.value || null })}
-                className="w-full rounded-xl border border-slate-200 py-2.5 px-4 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full rounded-2xl glass-input py-2.5 px-4 text-sm text-slate-700 focus:outline-none"
               />
             </div>
           </div>
 
           {/* Clear filters */}
           {hasFilters && (
-            <div className="mt-4 pt-4 border-t border-slate-100">
+            <div className="mt-4 pt-4 border-t border-white/20">
               <button
                 onClick={clearFilters}
-                className="flex items-center gap-2 text-sm text-slate-500 hover:text-slate-700"
+                className="flex items-center gap-2 text-sm text-slate-500 hover:text-slate-700 transition-colors"
               >
                 <XMarkIcon className="w-4 h-4" />
                 Clear all filters

@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react'
+import { useState } from 'react'
 import {
   useReactTable,
   getCoreRowModel,
@@ -27,19 +27,19 @@ export default function DataTable({ data, columns, pageSize = 10 }) {
 
   if (!data || data.length === 0) {
     return (
-      <div className="flex items-center justify-center h-[200px] text-slate-400">
+      <div className="flex items-center justify-center h-[200px] text-slate-500">
         No data available
       </div>
     )
   }
 
   return (
-    <div className="overflow-hidden">
+    <div className="overflow-hidden rounded-2xl glass-table">
       <div className="overflow-x-auto">
         <table className="min-w-full">
           <thead>
             {table.getHeaderGroups().map((headerGroup) => (
-              <tr key={headerGroup.id} className="border-b border-slate-200">
+              <tr key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
                   <th
                     key={header.id}
@@ -49,7 +49,7 @@ export default function DataTable({ data, columns, pageSize = 10 }) {
                       <div
                         className={clsx(
                           'flex items-center gap-2',
-                          header.column.getCanSort() && 'cursor-pointer select-none hover:text-slate-900'
+                          header.column.getCanSort() && 'cursor-pointer select-none hover:text-slate-800'
                         )}
                         onClick={header.column.getToggleSortingHandler()}
                       >
@@ -72,13 +72,10 @@ export default function DataTable({ data, columns, pageSize = 10 }) {
             ))}
           </thead>
           <tbody>
-            {table.getRowModel().rows.map((row, index) => (
+            {table.getRowModel().rows.map((row) => (
               <tr
                 key={row.id}
-                className={clsx(
-                  'border-b border-slate-100 hover:bg-slate-50 transition-colors',
-                  index % 2 === 0 ? 'bg-white' : 'bg-slate-50/50'
-                )}
+                className="border-b border-white/10 hover:bg-white/20 transition-colors"
               >
                 {row.getVisibleCells().map((cell) => (
                   <td key={cell.id} className="px-4 py-3 text-sm text-slate-700">
@@ -92,8 +89,8 @@ export default function DataTable({ data, columns, pageSize = 10 }) {
       </div>
 
       {/* Pagination */}
-      <div className="flex items-center justify-between px-4 py-3 border-t border-slate-200">
-        <div className="text-sm text-slate-500">
+      <div className="flex items-center justify-between px-4 py-3 border-t border-white/20 bg-white/10">
+        <div className="text-sm text-slate-600">
           Showing {table.getState().pagination.pageIndex * pageSize + 1} to{' '}
           {Math.min((table.getState().pagination.pageIndex + 1) * pageSize, data.length)} of{' '}
           {data.length} results
@@ -102,17 +99,17 @@ export default function DataTable({ data, columns, pageSize = 10 }) {
           <button
             onClick={() => table.previousPage()}
             disabled={!table.getCanPreviousPage()}
-            className="p-2 rounded-lg border border-slate-200 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-slate-50"
+            className="p-2 rounded-xl glass-button disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <ChevronLeftIcon className="w-4 h-4 text-slate-600" />
           </button>
-          <span className="text-sm text-slate-600">
+          <span className="text-sm text-slate-600 px-2">
             Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
           </span>
           <button
             onClick={() => table.nextPage()}
             disabled={!table.getCanNextPage()}
-            className="p-2 rounded-lg border border-slate-200 disabled:opacity-50 disabled:cursor-not-allowed hover:bg-slate-50"
+            className="p-2 rounded-xl glass-button disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <ChevronRightIcon className="w-4 h-4 text-slate-600" />
           </button>
